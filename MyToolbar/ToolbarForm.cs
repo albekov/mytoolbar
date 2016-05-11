@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 using MyToolbar.Services;
 
@@ -26,7 +25,6 @@ namespace MyToolbar
         private void Form1_Load(object sender, EventArgs e)
         {
             var area = Screen.PrimaryScreen.WorkingArea;
-            var rectangle = new Rectangle(area.X, area.Bottom - 40, area.Width, 40);
             Left = area.Left;
             Top = area.Bottom - 40;
             Width = area.Width;

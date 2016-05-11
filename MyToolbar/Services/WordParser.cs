@@ -18,12 +18,12 @@ namespace MyToolbar.Services
 
         public void HandleChar(char key)
         {
-            if (char.IsLetterOrDigit(key) || char.IsPunctuation(key))
+            if (IsNormalChar(key))
             {
                 Debug.WriteLine(key);
                 AppendToWord(key);
             }
-            else if (IsBreakKey(key))
+            else if (IsBreakChar(key))
             {
                 ClearWord();
             }
@@ -46,6 +46,8 @@ namespace MyToolbar.Services
             _currentWord = string.Empty;
         }
 
-        private static bool IsBreakKey(char key) => key == ' ' || key == '\t' || key == '\r' || key == '\n';
+        private static bool IsNormalChar(char key) => char.IsLetterOrDigit(key) || char.IsPunctuation(key);
+
+        private static bool IsBreakChar(char key) => key == ' ' || key == '\t' || key == '\r' || key == '\n';
     }
 }
