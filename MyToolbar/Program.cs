@@ -1,22 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MyToolbar.Services;
 
 namespace MyToolbar
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        ///     The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            var form = new ToolbarForm();
+            var words = new[]
+            {
+                "hello",
+                "welcome",
+                "automatic",
+                "autocomplete",
+                "I'm",
+                "the",
+                "best",
+                "developer",
+                "foobar"
+            };
+
+            var autoCompleteHandler = new AutoCompleteHandler(form, words);
+            var wordHandler = new WordParser(autoCompleteHandler);
+            using (var helper = new KeyboardHookHelper(wordHandler))
+            {
+                Application.Run(form);
+            }
         }
     }
 }
